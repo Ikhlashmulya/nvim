@@ -16,6 +16,7 @@ return {
           vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
         end
 
+        -- Navigasi antar hunk
         map("n", "]c", function()
           if vim.wo.diff then return "]c" end
           vim.schedule(gs.next_hunk)
@@ -28,6 +29,7 @@ return {
           return "<Ignore>"
         end, "Prev Hunk")
 
+        -- Aksi
         map("n", "<leader>hs", gs.stage_hunk, "Stage Hunk")
         map("n", "<leader>hr", gs.reset_hunk, "Reset Hunk")
         map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")

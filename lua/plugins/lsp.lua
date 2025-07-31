@@ -73,7 +73,21 @@ return {
       },
     })
 
-    -- Keymaps LSP attach
+    --    local servers = {
+    --      "lua_ls",
+    --      "ts_ls",
+    --      "bashls",
+    --      "jsonls",
+    --    }
+    --
+    --    for _, server in ipairs(servers) do
+    --      lspconfig[server].setup({
+    --        capabilities = capabilities,
+    --      })
+    --    end
+
+
+    -- 🧠 Keymaps ketika LSP attach
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function(event)
         local opts = { buffer = event.buf }

@@ -8,7 +8,7 @@ return {
         enable = true,
       },
       indent = { enable = true },
-      autotag = { enable = true },
+      -- autotag = { enable = true },
       ensure_installed = {
         "json",
         "javascript",
@@ -31,6 +31,10 @@ return {
         "astro",
       },
       auto_install = false,
+      -- context_commentstring = {
+      --   enable = true,
+      --   enable_autocmd = false,
+      -- },
       context_commentstring = {
         config = {
           javascript = {
