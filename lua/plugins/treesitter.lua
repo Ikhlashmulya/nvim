@@ -1,52 +1,80 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  config = function()
-    local configs = require("nvim-treesitter.configs")
-    configs.setup({
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true },
-      -- autotag = { enable = true },
-      ensure_installed = {
-        "json",
-        "javascript",
-        "query",
-        "typescript",
-        "tsx",
-        "php",
-        "yaml",
-        "html",
-        "css",
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "lua",
-        "vim",
-        "vimdoc",
-        "c",
-        "dockerfile",
-        "gitignore",
-        "astro",
-      },
-      auto_install = false,
-      -- context_commentstring = {
-      --   enable = true,
-      --   enable_autocmd = false,
-      -- },
-      context_commentstring = {
-        config = {
-          javascript = {
-            __default = '// %s',
-            jsx_element = '{/* %s */}',
-            jsx_fragment = '{/* %s */}',
-            jsx_attribute = '// %s',
-            comment = '// %s',
-          },
-          typescript = { __default = '// %s', __multiline = '/* %s */' },
-        },
-      }
-    })
-  end
+	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
+	build = ":TSUpdate",
+
+	config = function()
+		require("nvim-treesitter").setup({
+			install_dir = vim.fn.stdpath("data") .. "/site",
+		})
+
+		require("nvim-treesitter").install({
+			"json",
+			"javascript",
+			"query",
+			"typescript",
+			"tsx",
+			"php",
+			"yaml",
+			"html",
+			"css",
+			"markdown",
+			"markdown_inline",
+			"bash",
+			"lua",
+			"vim",
+			"vimdoc",
+			"c",
+			"dockerfile",
+			"gitignore",
+			"astro",
+		})
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = {
+				"json",
+				"javascript",
+				"typescript",
+				"tsx",
+				"php",
+				"yaml",
+				"html",
+				"css",
+				"markdown",
+				"markdown_inline",
+				"bash",
+				"lua",
+				"vim",
+				"vimdoc",
+				"c",
+				"dockerfile",
+				"astro",
+			},
+			callback = function()
+				vim.treesitter.start()
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = {
+				"json",
+				"javascript",
+				"typescript",
+				"tsx",
+				"php",
+				"yaml",
+				"html",
+				"css",
+				"markdown",
+				"bash",
+				"lua",
+				"vim",
+				"c",
+				"astro",
+			},
+			callback = function()
+				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
+		})
+	end,
 }
